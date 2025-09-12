@@ -33,3 +33,8 @@ Thumbs.db
 
 # Certificates (optional, if storing generated ones locally)
 certificates/*.pdf
+
+node_modules/
+build/
+.env
+*.secret
