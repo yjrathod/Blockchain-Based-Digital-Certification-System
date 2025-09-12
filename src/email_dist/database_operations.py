@@ -6,7 +6,7 @@ class DatabaseManager:
     def __init__(self, db_path='certificates.db'):
         self.db_path = db_path
     
-    def add_participant(self, name: str, email: str, organization: str = None, phone: str = None) -> int:
+    def add_participant(self, name: str, email: str, organization: Optional[str] = None, phone: Optional[str] = None) -> Optional[int]:
         """Add a participant to the database"""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
