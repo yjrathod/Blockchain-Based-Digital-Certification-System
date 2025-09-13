@@ -84,7 +84,7 @@ def store_certificate(cert_id: str, file_path: Path, name: str, event: str, date
 # Main
 # ----------------------------
 if __name__ == "__main__":
-    certificate_folder = Path("../certificates")
+    certificate_folder = Path("E:/Programming/Blockchain/Blockchain based Certification generation/Blockchain-Based-Digital-Certification-System/certificates")
 
     participants: list[Dict[str, str]] = [
         {"cert_id": "CERT001", "file": "John_Doe_certificate.pdf",
