@@ -10,26 +10,26 @@ contract CertificateStorage {
     // Struct for certificate metadata
     struct Certificate {
         string name;
-        string event;
+        string eventName; // Changed from 'event' to 'eventName'
         string date;
         bytes32 hash;
     }
 
     // Event for logging certificate storage
-    event CertificateStored(string certID, bytes32 hash, string name, string event, string date);
+    event CertificateStored(string certID, bytes32 hash, string name, string eventName, string date);
 
     // Store a certificate hash
     function storeCertificate(
         string memory certID,
         bytes32 certHash,
         string memory name,
-        string event,
+        string memory eventName, // Updated
         string memory date
     ) public {
         require(certificateHashes[certID] == bytes32(0), "Certificate ID already exists");
         certificateHashes[certID] = certHash;
-        certificateDetails[certID] = Certificate(name, event, date, certHash);
-        emit CertificateStored(certID, certHash, name, event, date);
+        certificateDetails[certID] = Certificate(name, eventName, date, certHash);
+        emit CertificateStored(certID, certHash, name, eventName, date);
     }
 
     // Verify a certificate hash
@@ -40,6 +40,6 @@ contract CertificateStorage {
     // Get certificate details for validation portal
     function getCertificateDetails(string memory certID) public view returns (string memory, string memory, string memory, bytes32) {
         Certificate memory cert = certificateDetails[certID];
-        return (cert.name, cert.event, cert.date, cert.hash);
+        return (cert.name, cert.eventName, cert.date, cert.hash); // Updated
     }
 }
