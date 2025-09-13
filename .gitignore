@@ -21,6 +21,7 @@ dist/
 # Logs / Databases
 *.log
 *.sqlite3
+*.db
 
 # OS files
 .DS_Store
@@ -33,3 +34,7 @@ Thumbs.db
 
 # Certificates (optional, if storing generated ones locally)
 certificates/*.pdf
+
+# Gmail API credentials and tokens (sensitive)
+credentials.json
+token.json

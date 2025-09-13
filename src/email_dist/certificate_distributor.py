@@ -1,7 +1,7 @@
 from email_service import EmailService
 from database_operations import DatabaseManager
 import os
-from datetime import datetime
+from typing import Optional
 
 class CertificateDistributor:
     def __init__(self):
@@ -10,8 +10,8 @@ class CertificateDistributor:
         print("🚀 Certificate Distributor initialized!")
     
     def add_certificate_to_queue(self, name: str, email: str, certificate_type: str, 
-                                pdf_path: str, organization: str = None, phone: str = None,
-                                custom_subject: str = None, custom_body: str = None) -> int:
+                                pdf_path: str, organization: Optional[str] = None, phone: Optional[str] = None,
+                                custom_subject: Optional[str] = None, custom_body: Optional[str] = None) -> int:
         """Add a certificate to the sending queue"""
         
         # Verify PDF exists
@@ -19,7 +19,9 @@ class CertificateDistributor:
             raise FileNotFoundError(f"PDF file not found: {pdf_path}")
         
         # Add participant
-        participant_id = self.db_manager.add_participant(name, email, organization, phone)
+        participant_id: Optional[int] = self.db_manager.add_participant(name, email, organization, phone)
+        if participant_id is None:
+            raise ValueError("Failed to add participant to the database.")
         
         # Create email content
         subject = custom_subject or f"Your {certificate_type} Certificate"
@@ -34,11 +36,11 @@ Thank you for your participation and dedication.
 Best regards,
 Certificate Team
 """
-        
-        # Add certificate record
-        certificate_id = self.db_manager.add_certificate_record(
+        certificate_id: Optional[int] = self.db_manager.add_certificate_record(
             participant_id, certificate_type, pdf_path, subject, body
         )
+        if certificate_id is None:
+            raise ValueError("Failed to add certificate record to the database.")
         
         print(f"📋 Certificate added to queue: {name} - {certificate_type}")
         return certificate_id
@@ -121,9 +123,8 @@ Certificate Team
         
         print(f"\n📋 Recent {limit} Certificates:")
         print("-" * 80)
-        print(f"{'Name':<20} {'Email':<25} {'Type':<15} {'Status':<10} {'Sent At'}")
+        print(f"\n📋 Recent {limit} Certificates:")
         print("-" * 80)
-        
         for record in history:
             name, email, cert_type, status, sent_at, error = record
             sent_time = sent_at if sent_at else 'Not sent'
