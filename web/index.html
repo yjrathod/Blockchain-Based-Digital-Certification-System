@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification System Web Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h1>Certification System Login</h1>
+        <button onclick="login('client')">Login as Client</button>
+        <button onclick="login('admin')">Login as Admin</button>
+    </div>
+    <div class="container" id="client-panel" style="display:none">
+        <h1>Certificate Verification</h1>
+        <input type="text" id="certIdInput" placeholder="Enter Certificate ID" />
+        <button onclick="verifyCertificate()">Verify Certificate</button>
+        <pre id="client-output"></pre>
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+    <div class="container" id="admin-panel" style="display:none">
+        <h1>Admin Panel</h1>
+        <button onclick="runAction('run_dashboard')">Run Admin Dashboard</button>
+        <button onclick="runAction('run_validation_portal')">Run Validation Portal</button>
+        <button onclick="runAction('generate_certificates')">Generate Certificates</button>
+        <button onclick="runAction('send_certificates')">Send Certificates (Email)</button>
+        <pre id="output"></pre>
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

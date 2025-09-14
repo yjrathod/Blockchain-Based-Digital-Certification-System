@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4">Admin Dashboard</h2>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" action="/upload_csv">
+                <label for="csvFile" class="form-label">Upload Participants (CSV):</label>
+                <input class="form-control" type="file" id="csvFile" name="csvFile" accept=".csv" onchange="previewCSV(this)" required>
+                <button class="btn btn-primary mt-2" type="submit">Upload</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Analytics</h5>
+                    <p class="card-text">Certificates Issued: <span id="cert-issued">{{ cert_issued or 0 }}</span></p>
+                    <p class="card-text">Certificates Validated: <span id="cert-validated">{{ cert_validated or 0 }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h4>Certificates</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>QR Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cert in certificates %}
+                    <tr>
+                        <td>{{ cert.id }}</td>
+                        <td>{{ cert.name }}</td>
+                        <td>{{ cert.event }}</td>
+                        <td>{{ cert.date }}</td>
+                        <td>
+                            {% if cert.qr_url %}
+                                <img src="{{ cert.qr_url }}" alt="QR Code" width="80" height="80">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>

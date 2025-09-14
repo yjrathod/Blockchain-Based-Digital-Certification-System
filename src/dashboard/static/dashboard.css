@@ -1,0 +1,29 @@
+/* Modern dashboard styles using Bootstrap and custom tweaks */
+body {
+    background: #f8f9fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.container {
+    margin-top: 60px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+}
+h2 {
+    color: #343a40;
+    margin-bottom: 24px;
+}
+.btn-primary {
+    background: #007bff;
+    border: none;
+}
+.btn-primary:hover {
+    background: #0056b3;
+}
+.table {
+    background: #fff;
+}
+.alert {
+    margin-top: 16px;
+}
