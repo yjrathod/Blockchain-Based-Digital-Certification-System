@@ -21,6 +21,7 @@ dist/
 # Logs / Databases
 *.log
 *.sqlite3
+*.db
 
 # OS files
 .DS_Store
@@ -34,10 +35,18 @@ Thumbs.db
 # Certificates (optional, if storing generated ones locally)
 certificates/*.pdf
 
+# Node modules and build
 node_modules/
 build/
+
+# Environment files
 .env
 *.secret
 
-
+# Certificate PDFs
 src/cert_gen/output/*.pdf
+
+# Gmail API credentials and tokens (sensitive)
+credentials.json
+token.json
+
